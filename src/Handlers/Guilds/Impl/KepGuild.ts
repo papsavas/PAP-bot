@@ -1,4 +1,4 @@
-import { ButtonInteraction, Client, Collection, Guild, GuildBan, GuildChannel, GuildChannelManager, GuildMember, Message, MessageActionRow, MessageButton, MessageEmbed, MessageReaction, SelectMenuInteraction, Snowflake, TextChannel, User } from 'discord.js';
+import { ActionRow, ButtonComponent, ButtonInteraction, Client, Collection, Embed, Guild, GuildBan, GuildChannel, GuildChannelManager, GuildMember, Message, MessageReaction, SelectMenuInteraction, Snowflake, TextChannel, User } from 'discord.js';
 import { calendar_v3 } from 'googleapis';
 import { sanitizeDiacritics, toGreek } from "greek-utils";
 import moment from "moment-timezone";
@@ -199,7 +199,7 @@ export class KepGuild extends AbstractGuild implements GenericGuild {
         const logChannel = message.guild.channels.cache.get(channels.logs) as TextChannel;
         return logChannel?.send({
             embeds: [
-                new MessageEmbed(
+                new Embed(
                     {
                         author: {
                             name: message.author.username,
@@ -314,14 +314,14 @@ export class KepGuild extends AbstractGuild implements GenericGuild {
                     },
                     title: `${semester}ο Εξάμηνο`
                 }
-                const logEmbeds: MessageEmbed[] = [];
+                const logEmbeds: Embed[] = [];
                 if (added.length > 0) logEmbeds.push(
-                    new MessageEmbed(header)
+                    new Embed(header)
                         .setColor("BLUE")
                         .addFields([{ name: 'Προστέθηκαν', value: added }])
                 );
                 if (removedRoles.size > 0) logEmbeds.push(
-                    new MessageEmbed(header)
+                    new Embed(header)
                         .setColor("RED")
                         .addFields([{
                             name: 'Αφαιρέθηκαν', value: removedRoles
@@ -331,7 +331,7 @@ export class KepGuild extends AbstractGuild implements GenericGuild {
                 );
 
                 if (logEmbeds.length === 0)
-                    logEmbeds.push(new MessageEmbed(header).setDescription("Δεν υπήρξαν αλλαγές"))
+                    logEmbeds.push(new Embed(header).setDescription("Δεν υπήρξαν αλλαγές"))
 
                 return select.reply({
                     embeds: logEmbeds,
@@ -402,7 +402,7 @@ export class KepGuild extends AbstractGuild implements GenericGuild {
                     return appealChannel.send({
                         content: `<@${userid}>`,
                         embeds: [
-                            new MessageEmbed({
+                            new Embed({
                                 title: "Έφεση",
                                 description: `<@${userid}> Θα πρέπει να στείλετε εδώ μία φωτογραφία της ακαδημαϊκή σας ταυτότητας με εμφανή τον αριθμό μητρώου`,
                                 fields: [{
@@ -447,7 +447,7 @@ export class KepGuild extends AbstractGuild implements GenericGuild {
                 studentCourses.sweep((v, k) => selectedCourses.some(sc => sc.role_id === k));
                 return interaction.reply({
                     embeds: [
-                        new MessageEmbed({
+                        new Embed({
                             author: {
                                 name: member.displayName,
                                 icon_url: member.user.avatarURL()
@@ -484,12 +484,12 @@ export class KepGuild extends AbstractGuild implements GenericGuild {
                             content: `<@&${roles.mod}> **Requires Attention**`,
                             embeds: message.embeds.map(e => e.setColor("RED")),
                             components: [
-                                new MessageActionRow().setComponents(
-                                    new MessageButton(susWarnBtn), new MessageButton(susFocusBtn).setDisabled(), new MessageButton(susResolvedBtn), new MessageButton(susDeleteBtn).setDisabled(),
+                                new ActionRow().setComponents(
+                                    new ButtonComponent(susWarnBtn), new ButtonComponent(susFocusBtn).setDisabled(), new ButtonComponent(susResolvedBtn), new ButtonComponent(susDeleteBtn).setDisabled(),
                                     //include jump button
                                     message.components[0].components.find(c => !c.customId)
                                 ),
-                                new MessageActionRow().setComponents(new MessageButton(susSurveillanceBtn))
+                                new ActionRow().setComponents(new ButtonComponent(susSurveillanceBtn))
                             ],
                             allowedMentions: { parse: ["roles"] }
                         })
@@ -612,7 +612,7 @@ async function handleMutedMembers(guild: Guild) {
                 const member = await guild.members.fetch(mm.member_id);
                 await member?.roles?.set(mm.roles);
                 await dropMutedMember(member.id);
-                const headerEmb = new MessageEmbed({
+                const headerEmb = new Embed({
                     author: {
                         name: `CyberSocial Excluded`,
                         icon_url: `https://i.imgur.com/92vhTqK.png`
@@ -623,7 +623,7 @@ async function handleMutedMembers(guild: Guild) {
                 })
                 await (guild.channels.cache.get(channels.logs) as TextChannel).send({
                     embeds: [
-                        new MessageEmbed(headerEmb)
+                        new Embed(headerEmb)
                             .setDescription(`Unmuted ${member.toString()}`)
                     ]
                 })
@@ -634,38 +634,38 @@ async function handleMutedMembers(guild: Guild) {
 
 const { warnSus, focusSus, resolvedSus, deleteSus, surveillanceSus } = buttons;
 
-const susWarnBtn = new MessageButton({
+const susWarnBtn = new ButtonComponent({
     customId: warnSus,
     style: "PRIMARY",
     label: "Warn",
     emoji: "⚠"
 })
-const susFocusBtn = new MessageButton({
+const susFocusBtn = new ButtonComponent({
     customId: focusSus,
     style: "DANGER",
     emoji: "🎯",
     label: "Focus",
 });
-const susResolvedBtn = new MessageButton({
+const susResolvedBtn = new ButtonComponent({
     customId: resolvedSus,
     style: "SUCCESS",
     emoji: "✅",
     label: "Resolved",
 })
-const susDeleteBtn = new MessageButton({
+const susDeleteBtn = new ButtonComponent({
     customId: deleteSus,
     style: "SECONDARY",
     emoji: "🗑",
     label: "Delete"
 })
 
-const susJumpBtn = (url: string) => new MessageButton({
+const susJumpBtn = (url: string) => new ButtonComponent({
     style: "LINK",
     url,
     label: "Jump",
 })
 
-const susSurveillanceBtn = new MessageButton({
+const susSurveillanceBtn = new ButtonComponent({
     customId: surveillanceSus,
     style: "PRIMARY",
     emoji: "🚨",
@@ -683,7 +683,7 @@ function scanContent({ content, author, member, channel, url, attachments }: Mes
     const found = index === -1 ? undefined : content.split(' ')[index];
     if (found) {
         logChannel.send({
-            embeds: [new MessageEmbed({
+            embeds: [new Embed({
                 author: {
                     name: member.displayName ?? author.username,
                     icon_url: author.avatarURL()
@@ -700,11 +700,11 @@ function scanContent({ content, author, member, channel, url, attachments }: Mes
                 timestamp: new Date(),
             })],
             components: [
-                new MessageActionRow().addComponents(
+                new ActionRow().addComponents(
                     [susWarnBtn, susFocusBtn, susResolvedBtn, susDeleteBtn, susJumpBtn(url)]
-                        .map(source => new MessageButton(source))
+                        .map(source => new ButtonComponent(source))
                 ),
-                new MessageActionRow().addComponents(susSurveillanceBtn)
+                new ActionRow().addComponents(susSurveillanceBtn)
             ],
         })
             .catch(err => console.log(`Could not message for detected keyword\n${author}: ${content} on ${url}`));
