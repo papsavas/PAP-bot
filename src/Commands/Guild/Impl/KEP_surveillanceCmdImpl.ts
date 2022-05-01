@@ -1,6 +1,6 @@
 
 import { ApplicationCommandData, Collection, CommandInteraction, Message, Snowflake } from "discord.js";
-import { roles } from "../../../../values/KEP/IDs.json";
+const { roles } = (await import("../../../../values/KEP/IDs.json", { assert: { type: 'json' } })).default;
 import { commandLiteral } from "../../../Entities/Generic/command";
 import { fetchCommandID } from "../../../Queries/Generic/Commands";
 import { AbstractGuildCommand } from "../AbstractGuildCommand";

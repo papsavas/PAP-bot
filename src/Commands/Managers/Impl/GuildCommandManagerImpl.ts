@@ -5,9 +5,10 @@ import { fetchCommandPerms, overrideCommands } from '../../../Queries/Generic/Co
 import { GenericGuildCommand } from '../../Guild/GenericGuildCommand';
 import { GuildCommandManager } from "../Interf/GuildCommandManager";
 import { CommandManagerImpl } from './CommandManagerImpl';
-if (process.env.NODE_ENV !== 'production')
-    require('dotenv').config({ path: require('find-config')('.env') })
 
+if (process.env.NODE_ENV !== 'production')
+    (await import('dotenv'))
+        .config({ path: (await import('find-config')).read('.env') })  //load env variables
 export class GuildCommandManagerImpl extends CommandManagerImpl implements GuildCommandManager {
     private readonly guildID: Snowflake;
     declare readonly commands: GenericGuildCommand[];

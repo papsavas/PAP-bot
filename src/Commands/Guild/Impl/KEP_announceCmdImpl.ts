@@ -1,6 +1,6 @@
 
 import { ChatInputApplicationCommandData, Collection, CommandInteraction, Message, MessageActionRow, MessageButton, MessageEmbed, Snowflake, TextChannel } from "discord.js";
-import { channels as kepChannels } from "../../../../values/KEP/IDs.json";
+const { channels: kepChannels } = (await import("../../../../values/KEP/IDs.json", { assert: { type: 'json' } })).default;
 import { commandLiteral } from "../../../Entities/Generic/command";
 import { fetchCommandID } from '../../../Queries/Generic/Commands';
 import { AbstractGuildCommand } from '../AbstractGuildCommand';

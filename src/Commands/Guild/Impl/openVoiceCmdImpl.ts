@@ -1,4 +1,4 @@
-import { APIRole } from "discord-api-types";
+import { APIRole } from "discord-api-types/v9";
 import { ApplicationCommandData, Collection, CommandInteraction, GuildMember, Message, Role, Snowflake, User } from "discord.js";
 import { commandLiteral } from "../../../Entities/Generic/command";
 import { fetchCommandID } from "../../../Queries/Generic/Commands";

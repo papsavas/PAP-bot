@@ -1,5 +1,5 @@
 import { ApplicationCommandData, ApplicationCommandOptionData, Collection, CommandInteraction, Message, Snowflake } from "discord.js";
-import * as i from "../../../../values/KEP/info.json";
+const i = (await import("../../../../values/KEP/info.json", { assert: { type: 'json' } })).default;
 import { commandLiteral } from "../../../Entities/Generic/command";
 import { fetchCommandID } from "../../../Queries/Generic/Commands";
 import { AbstractGuildCommand } from "../AbstractGuildCommand";
