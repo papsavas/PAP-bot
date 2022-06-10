@@ -3,7 +3,7 @@
  */
 import { ApplicationCommandOptionData, ApplicationCommandPermissions, ChatInputApplicationCommandData, Collection, CommandInteraction, Constants, Guild, Message, MessageEmbed, Snowflake } from 'discord.js';
 import { commandLiteral } from '../../../Entities/Generic/command';
-import { guilds } from "../../../index";
+const { guilds } = await import('../../../Inventory/guilds');
 import { fetchCommandID, fetchCommandPerms } from "../../../Queries/Generic/Commands";
 import { AbstractGuildCommand } from "../AbstractGuildCommand";
 import { showPermsCmd } from "../Interf/showPermsCmd";

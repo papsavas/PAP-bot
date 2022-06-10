@@ -2,20 +2,18 @@
   "compilerOptions": {
     "outDir": "./dist",
     "experimentalDecorators": true,
-    "target": "ESNext",
-    "module": "CommonJS",
+    "module": "ESNext",
+    "target": "ES2021",
     "strict": false,
     "moduleResolution": "Node",
+    "downlevelIteration": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "noUnusedParameters": false,
     "noUnusedLocals": false,
-    "lib": [
-      "ES2018"
-    ],
     "resolveJsonModule": true,
   },
   "exclude": [
-    "node_modules"
+    "node_modules", "repo"
   ],
 }

@@ -1,6 +1,6 @@
 import { ApplicationCommandData, Collection, CommandInteraction, Message, MessageAttachment, Snowflake } from "discord.js";
-import { guilds } from "../../..";
-import { categories, guildId, roles } from "../../../../values/KEP/IDs.json";
+const { guilds } = await import('../../../Inventory/guilds');
+const { categories, guildId, roles } = (await import("../../../../values/KEP/IDs.json", { assert: { type: 'json' } })).default;
 import { commandLiteral } from "../../../Entities/Generic/command";
 import { Course, semesterRegex } from "../../../Entities/KEP/Course";
 import { KepGuild } from "../../../Handlers/Guilds/Impl/KepGuild";

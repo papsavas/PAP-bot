@@ -1,5 +1,5 @@
 import { ChatInputApplicationCommandData, Collection, CommandInteraction, Message, Permissions, Snowflake } from "discord.js";
-import { adminUsers, roles as kepRoles } from "../../../../values/KEP/IDs.json";
+const { adminUsers, roles: kepRoles } = (await import("../../../../values/KEP/IDs.json", { assert: { type: 'json' } })).default;
 import { commandLiteral } from "../../../Entities/Generic/command";
 import { fetchCommandID } from "../../../Queries/Generic/Commands";
 import { AbstractGuildCommand } from "../AbstractGuildCommand";

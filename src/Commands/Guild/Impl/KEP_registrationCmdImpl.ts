@@ -1,11 +1,11 @@
 import { ChatInputApplicationCommandData, Collection, CommandInteraction, Message, MessageActionRow, MessageButton, MessageEmbed, Snowflake, TextChannel } from "discord.js";
-import { channels as kepChannels, roles as kepRoles } from "../../../../values/KEP/IDs.json";
-import { buttons, messages } from "../../../../values/KEP/literals.json";
+const { channels: kepChannels, roles: kepRoles } = (await import("../../../../values/KEP/IDs.json", { assert: { type: 'json' } })).default;
+const { buttons, messages } = (await import("../../../../values/KEP/literals.json", { assert: { type: 'json' } })).default;
 import { commandLiteral } from "../../../Entities/Generic/command";
 import { Course } from "../../../Entities/KEP/Course";
 import { amType, Student } from "../../../Entities/KEP/Student";
 import { KepGuild } from "../../../Handlers/Guilds/Impl/KepGuild";
-import { guilds } from "../../../index";
+const { guilds } = await import('../../../Inventory/guilds');
 import { fetchCommandID } from "../../../Queries/Generic/Commands";
 import { addStudents, dropPendingStudent, fetchPendingStudent, fetchStudent, savePendingStudent } from "../../../Queries/KEP/Student";
 import { sendEmail } from "../../../tools/Google/Gmail";
