@@ -1,8 +1,6 @@
 import {
     Client, Constants, GuildChannelManager, TextChannel
 } from 'discord.js';
-import moment from 'moment-timezone';
-import { assert } from 'node:console';
 import { readdirSync } from 'node:fs';
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
