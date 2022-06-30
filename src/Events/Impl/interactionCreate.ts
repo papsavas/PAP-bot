@@ -1,5 +1,5 @@
 import { ClientEvents, Interaction, MessageEmbed } from "discord.js";
-import { bugsChannel } from '../../index'
+import { bugsChannel } from '../../index';
 const { dmHandler } = await import('../../Inventory/DMs');
 const { globalCommandHandler } = await import('../../Inventory/globalCommandHandler');
 const { globalCommandsIDs } = await import('../../Inventory/globalCommandHandler')
@@ -18,12 +18,9 @@ const execute = async (interaction: Interaction) => {
                 ?.onSlashCommand(interaction)
                 .catch(console.error);
         }
-        else if (interaction.channel.type === "DM") {
+        else {
             dmHandler.onSlashCommand(interaction)
                 .catch(console.error);
-        }
-        else {
-            console.log(`unspecified interaction channel type\n${interaction.toJSON()}`)
         }
     }
 
@@ -46,7 +43,7 @@ const execute = async (interaction: Interaction) => {
                 ?.onSelectMenu(interaction)
                 .catch(console.error);
         }
-        else if (interaction.channel.type === "DM") {
+        else {
             dmHandler.onSelectMenu(interaction)
                 .catch(console.error);
             console.log('dm select received');

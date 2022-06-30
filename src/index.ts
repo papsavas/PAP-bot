@@ -4,8 +4,8 @@ import {
 import { readdirSync } from 'node:fs';
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-const { guildID: botGuildID } = (await import("../bot.config.json", { assert: { type: 'json' } })).default;
-const { channels: botGuildChannels } = (await import("../values/PAP/IDs.json", { assert: { type: 'json' } })).default;
+import * as config from "../bot.config.json" assert { type: "json" };
+import * as guildIds from "../values/PAP/IDs.json" assert { type: "json" };
 import GenericEvent from './Events/GenericEvent';
 
 export let bugsChannel: TextChannel;
@@ -46,10 +46,10 @@ export const PAP = new Client({
 PAP.on('ready', async () => {
     try {
         PAP.user.setActivity('over you', { type: 'WATCHING' });
-        const PAPGuildChannels: GuildChannelManager = (await PAP.guilds.cache.get(botGuildID).fetch()).channels;
-        const initLogs = PAPGuildChannels.cache.get(botGuildChannels.init_logs) as TextChannel;
-        bugsChannel = PAPGuildChannels.cache.get(botGuildChannels.bugs) as TextChannel;
-        logsChannel = PAPGuildChannels.cache.get(botGuildChannels.logs) as TextChannel;
+        const PAPGuildChannels: GuildChannelManager = (await PAP.guilds.cache.get(config.guildID).fetch()).channels;
+        const initLogs = PAPGuildChannels.cache.get(guildIds.channels.init_logs) as TextChannel;
+        bugsChannel = PAPGuildChannels.cache.get(guildIds.channels.bugs) as TextChannel;
+        logsChannel = PAPGuildChannels.cache.get(guildIds.channels.logs) as TextChannel;
         console.log('smooth init');
 
     } catch (err) {
