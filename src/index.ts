@@ -11,7 +11,7 @@ import GenericEvent from './Events/GenericEvent';
 export let bugsChannel: TextChannel;
 export let logsChannel: TextChannel;
 
-if (process.env.NODE_ENV !== 'production')
+if (!process.env.NODE_ENV || process.env.NODE_ENV === "development")
     (await import('dotenv'))
         .config({ path: (await import('find-config')).read('.env') })  //load env variables
 
