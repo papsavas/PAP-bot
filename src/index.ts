@@ -43,6 +43,10 @@ export const PAP = new Client({
 });
 
 
+await PAP.login(process.env.BOT_TOKEN)
+    .then(r => console.log(`logged in `))
+    .catch(err => console.log(`ERROR ON LOGIN: \n${err}`));
+
 PAP.on('ready', async () => {
     try {
         PAP.user.setActivity('over you', { type: 'WATCHING' });
@@ -66,6 +70,7 @@ const eventFiles = readdirSync(`${__dirname}/Events/Impl`)
     .filter(file => Object.values(Constants.Events)
         .includes(file.split('.')[0])
     );
+
 for (const file of eventFiles) {
     const event: GenericEvent = (await import(`./Events/Impl/${file}`)).default;
     PAP.on(event.name, async (...args) => {
@@ -73,11 +78,6 @@ for (const file of eventFiles) {
             .catch(err => console.error(err))
     });
 }
-
-PAP.login(process.env.BOT_TOKEN)
-    .then(r => console.log(`logged in `))
-    .catch(err => console.log(`ERROR ON LOGIN: \n${err}`));
-
 
 process.on('unhandledRejection', (reason, p) => {
     console.log(reason)
