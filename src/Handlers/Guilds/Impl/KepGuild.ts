@@ -1,6 +1,6 @@
 import { ButtonInteraction, Client, Collection, Guild, GuildBan, GuildChannel, GuildChannelManager, GuildMember, Message, MessageActionRow, MessageButton, MessageEmbed, MessageReaction, SelectMenuInteraction, Snowflake, TextChannel, User } from 'discord.js';
 import { calendar_v3 } from 'googleapis';
-import { sanitizeDiacritics, toGreek } from "greek-utils";
+import greekUtils from "greek-utils";
 import moment from "moment-timezone";
 import 'moment/locale/el';
 import urlRegex from 'url-regex';
@@ -35,8 +35,10 @@ import { deleteDrivePermission } from '../../../tools/Google/Gdrive';
 import { scheduleTask } from '../../../tools/scheduler';
 import { AbstractGuild } from "../AbstractGuild";
 import { GenericGuild } from "../GenericGuild";
+const { sanitizeDiacritics, toGreek } = greekUtils;
 const { categories, channels, roles } = kepIds;
 const { buttons, examsPrefix } = literals;
+const { warnSus, focusSus, resolvedSus, deleteSus, surveillanceSus } = buttons;
 const { channels: WOAPchannels } = woapIds;
 moment.tz("Europe/Athens");
 
@@ -477,11 +479,11 @@ export class KepGuild extends AbstractGuild implements GenericGuild {
                 const message = await interaction.channel.messages.fetch(interaction.message.id);
                 switch (interaction.customId) {
 
-                    case buttons.warnSus: {
+                    case warnSus: {
                         return interaction.editReply(`Until pop up release, warns are added manually.\n\`~warn <member_id> <reason>\` at <#${channels.skynet}>`)
                     }
 
-                    case buttons.focusSus: {
+                    case focusSus: {
                         return message.edit({
                             content: `<@&${roles.mod}> **Requires Attention**`,
                             embeds: message.embeds.map(e => e.setColor("RED")),
@@ -499,7 +501,7 @@ export class KepGuild extends AbstractGuild implements GenericGuild {
 
                     }
 
-                    case buttons.resolvedSus: {
+                    case resolvedSus: {
                         return message.edit({
                             content: `*Marked as resolved by ${interaction.member.toString()} at ${moment().tz("Europe/Athens").format("LLLL")}*`,
                             allowedMentions: { parse: [] },
@@ -514,12 +516,12 @@ export class KepGuild extends AbstractGuild implements GenericGuild {
                             .then(() => interaction.editReply("Marked as Resolved"))
                     }
 
-                    case buttons.deleteSus: {
+                    case deleteSus: {
                         return message.delete()
                             .then(() => interaction.editReply("Message Deleted"));
                     }
 
-                    case buttons.surveillanceSus: {
+                    case surveillanceSus: {
                         const member = await interaction.guild.members.fetch(interaction.user.id);
                         return (member.roles.cache.has(roles.overseer) ?
                             member.roles.remove(roles.overseer) : member.roles.add(roles.overseer))
@@ -633,8 +635,6 @@ async function handleMutedMembers(guild: Guild) {
         })
     }
 }
-
-const { warnSus, focusSus, resolvedSus, deleteSus, surveillanceSus } = buttons;
 
 const susWarnBtn = new MessageButton({
     customId: warnSus,
