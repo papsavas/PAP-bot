@@ -1,9 +1,10 @@
 import { ChatInputApplicationCommandData, Collection, CommandInteraction, Message, Permissions, Snowflake } from "discord.js";
-const { adminUsers, roles: kepRoles } = (await import("../../../../values/KEP/IDs.json", { assert: { type: 'json' } })).default;
+import * as kepIds from "../../../../values/KEP/IDs.json" assert { type: 'json' };
 import { commandLiteral } from "../../../Entities/Generic/command";
 import { fetchCommandID } from "../../../Queries/Generic/Commands";
 import { AbstractGuildCommand } from "../AbstractGuildCommand";
 import { KEP_adminCmd } from "../Interf/KEP_adminCmd";
+const { adminUsers, roles: kepRoles } = kepIds;
 
 const [onLiteral, offLiteral] = ["on", "off"];
 

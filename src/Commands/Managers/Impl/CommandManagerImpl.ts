@@ -4,13 +4,14 @@ import {
     BaseCommandInteraction,
     Collection, CommandInteraction, Constants, GuildApplicationCommandManager, Message, MessageEmbed, Snowflake
 } from "discord.js";
-const { prefix: defaultPrefix } = (await import("../../../../bot.config.json", { assert: { type: 'json' } })).default;
+import * as config from "../../../../bot.config.json" assert { type: 'json' };
 import { argDigits, commandLiteral, ToArgsxType, ToArgxType } from "../../../Entities/Generic/command";
 import { bugsChannel } from "../../../index";
-const { guilds } = await import('../../../Inventory/guilds');
+import { guilds } from "../../../Inventory/guilds";
 import { fetchCommandID, fetchCommandPerms } from "../../../Queries/Generic/Commands";
 import { GenericCommand } from "../../GenericCommand";
 import { CommandManager } from "../Interf/CommandManager";
+const { prefix: defaultPrefix } = config;
 
 export abstract class CommandManagerImpl implements CommandManager {
     readonly commands: GenericCommand[];

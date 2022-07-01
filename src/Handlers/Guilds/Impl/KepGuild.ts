@@ -1,12 +1,12 @@
 import { ButtonInteraction, Client, Collection, Guild, GuildBan, GuildChannel, GuildChannelManager, GuildMember, Message, MessageActionRow, MessageButton, MessageEmbed, MessageReaction, SelectMenuInteraction, Snowflake, TextChannel, User } from 'discord.js';
 import { calendar_v3 } from 'googleapis';
-const { sanitizeDiacritics, toGreek } = await import("greek-utils");
+import { sanitizeDiacritics, toGreek } from "greek-utils";
 import moment from "moment-timezone";
 import 'moment/locale/el';
 import urlRegex from 'url-regex';
-const { categories, channels, roles } = (await import("../../../../values/KEP/IDs.json", { assert: { type: 'json' } })).default;
-const { buttons, examsPrefix } = (await import("../../../../values/KEP/literals.json", { assert: { type: 'json' } })).default;
-const { channels: WOAPchannels } = (await import("../../../../values/WOAP/IDs.json", { assert: { type: 'json' } })).default;
+import * as kepIds from "../../../../values/KEP/IDs.json";
+import * as literals from "../../../../values/KEP/literals.json";
+import * as woapIds from "../../../../values/WOAP/IDs.json";
 import { KEP_adminCmdImpl } from '../../../Commands/Guild/Impl/KEP_adminCmdImpl';
 import { KEP_courseCmdImpl } from '../../../Commands/Guild/Impl/KEP_courseCmdImpl';
 import { KEP_courseTeacherCmdImpl } from '../../../Commands/Guild/Impl/KEP_courseTeacherCmdImpl';
@@ -35,6 +35,9 @@ import { deleteDrivePermission } from '../../../tools/Google/Gdrive';
 import { scheduleTask } from '../../../tools/scheduler';
 import { AbstractGuild } from "../AbstractGuild";
 import { GenericGuild } from "../GenericGuild";
+const { categories, channels, roles } = kepIds;
+const { buttons, examsPrefix } = literals;
+const { channels: WOAPchannels } = woapIds;
 moment.tz("Europe/Athens");
 
 

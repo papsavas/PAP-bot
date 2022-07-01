@@ -1,13 +1,14 @@
 import { ApplicationCommandData, Collection, CommandInteraction, Message, MessageAttachment, Snowflake } from "discord.js";
-const { guilds } = await import('../../../Inventory/guilds');
-const { categories, guildId, roles } = (await import("../../../../values/KEP/IDs.json", { assert: { type: 'json' } })).default;
+import * as kepIds from "../../../../values/KEP/IDs.json";
 import { commandLiteral } from "../../../Entities/Generic/command";
 import { Course, semesterRegex } from "../../../Entities/KEP/Course";
 import { KepGuild } from "../../../Handlers/Guilds/Impl/KepGuild";
+import { guilds } from "../../../Inventory/guilds";
 import { fetchCommandID } from "../../../Queries/Generic/Commands";
 import { addCourse, dropCourse, fetchCourses } from "../../../Queries/KEP/Course";
 import { AbstractGuildCommand } from "../AbstractGuildCommand";
 import { KEP_courseCmd } from "../Interf/KEP_courseCmd";
+const { categories, guildId, roles } = kepIds;
 
 const [createLiteral, deleteLiteral, listLiteral] = ["create", "delete", "list"];
 const [codeLiteral, nameLiteral, semesterLiteral] = ["code", "name", "semester"];

@@ -20,7 +20,7 @@ const execute = async (deletedMessage: Message<boolean> | PartialMessage) => {
         case 'GUILD_PUBLIC_THREAD':
         case 'GUILD_NEWS':
         case 'GUILD_NEWS_THREAD': {
-            const { guilds } = await import('../../Inventory/guilds');
+            const { guilds } = await import("../../Inventory/guilds");
             guilds.get(deletedMessage.guild?.id)
                 ?.onMessageDelete(deletedMessage as Message)
                 .catch(console.error);

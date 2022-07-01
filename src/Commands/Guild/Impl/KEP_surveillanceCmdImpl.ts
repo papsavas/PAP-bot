@@ -1,10 +1,11 @@
 
 import { ApplicationCommandData, Collection, CommandInteraction, Message, Snowflake } from "discord.js";
-const { roles } = (await import("../../../../values/KEP/IDs.json", { assert: { type: 'json' } })).default;
+import * as kepIds from "../../../../values/KEP/IDs.json" assert { type: 'json' };
 import { commandLiteral } from "../../../Entities/Generic/command";
 import { fetchCommandID } from "../../../Queries/Generic/Commands";
 import { AbstractGuildCommand } from "../AbstractGuildCommand";
 import { KEP_surveillanceCmd } from "../Interf/KEP_surveillanceCmd";
+const { roles } = kepIds;
 
 export class KEP_surveillanceCmdImpl extends AbstractGuildCommand implements KEP_surveillanceCmd {
 

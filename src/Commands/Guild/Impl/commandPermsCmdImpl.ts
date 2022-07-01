@@ -4,8 +4,8 @@
 
 
 import { ApplicationCommandData, ApplicationCommandOptionData, ApplicationCommandPermissionData, Collection, CommandInteraction, Message, Permissions, Snowflake } from "discord.js";
-const { guilds } = await import('../../../Inventory/guilds');
 import { commandLiteral } from "../../../Entities/Generic/command";
+import { guilds } from "../../../Inventory/guilds";
 import { dropCommandPerms, fetchCommandID, overrideCommandPerms } from "../../../Queries/Generic/Commands";
 import { AbstractGuildCommand } from "../AbstractGuildCommand";
 import { commandPermsCmd } from "../Interf/commandPermsCmd";

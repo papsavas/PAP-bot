@@ -1,5 +1,7 @@
 import { ClientEvents, Message } from "discord.js";
-const { creatorID } = (await import('../../../bot.config.json', { assert: { type: 'json' } })).default;
+import * as config from "../../../bot.config.json" assert { type: 'json' };
+const { creatorID } = config;
+
 
 const name: keyof ClientEvents = 'messageCreate';
 const execute = async (message: Message) => {
@@ -35,7 +37,7 @@ const execute = async (message: Message) => {
         case 'GUILD_PUBLIC_THREAD':
         case 'GUILD_NEWS':
         case 'GUILD_NEWS_THREAD': {
-            const { guilds } = await import('../../Inventory/guilds');
+            const { guilds } = await import("../../Inventory/guilds");
             guilds.get(message.guild.id)
                 ?.onMessage(message)
                 .catch(console.error);

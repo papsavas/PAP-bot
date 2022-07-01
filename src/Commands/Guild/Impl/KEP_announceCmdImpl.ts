@@ -1,10 +1,11 @@
 
 import { ChatInputApplicationCommandData, Collection, CommandInteraction, Message, MessageActionRow, MessageButton, MessageEmbed, Snowflake, TextChannel } from "discord.js";
-const { channels: kepChannels } = (await import("../../../../values/KEP/IDs.json", { assert: { type: 'json' } })).default;
+import * as kepIds from "../../../../values/KEP/IDs.json" assert { type: 'json' };
 import { commandLiteral } from "../../../Entities/Generic/command";
 import { fetchCommandID } from '../../../Queries/Generic/Commands';
 import { AbstractGuildCommand } from '../AbstractGuildCommand';
 import { KEP_announceCmd } from "../Interf/KEP_announceCmd";
+const { channels: kepChannels } = kepIds;
 
 const contentLiteral = `content`
 export class KEP_announceCmdImpl extends AbstractGuildCommand implements KEP_announceCmd {

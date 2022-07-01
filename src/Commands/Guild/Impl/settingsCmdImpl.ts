@@ -1,6 +1,6 @@
 import { ApplicationCommandData, BaseCommandInteraction, ButtonInteraction, Collection, CommandInteraction, GuildChannel, GuildMember, InteractionReplyOptions, Message, MessageActionRow, MessageButton, MessageComponentInteraction, Permissions, ReplyMessageOptions, Snowflake } from "discord.js";
-const { guilds } = await import('../../../Inventory/guilds');
 import { commandLiteral } from "../../../Entities/Generic/command";
+import { guilds } from "../../../Inventory/guilds";
 import { fetchCommandID } from "../../../Queries/Generic/Commands";
 import { fetchGuildSettings, setVoiceLobby, updateGuildSettings } from "../../../Queries/Generic/GuildSettings";
 import { AbstractGuildCommand } from "../AbstractGuildCommand";

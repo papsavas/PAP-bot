@@ -18,7 +18,7 @@ const execute = async (reaction: MessageReaction | PartialMessageReaction, user:
         case 'GUILD_PUBLIC_THREAD':
         case 'GUILD_NEWS':
         case 'GUILD_NEWS_THREAD': {
-            const { guilds } = await import('../../Inventory/guilds');
+            const { guilds } = await import("../../Inventory/guilds");
             guilds.get(reaction.message.guild?.id)
                 ?.onMessageReactionAdd(
                     r as MessageReaction,
