@@ -1,5 +1,5 @@
 import { ClientEvents, Interaction, MessageEmbed } from "discord.js";
-import { bugsChannel } from '../../index';
+import channels from "../../Inventory/channels";
 import { dmHandler } from '../../Inventory/DMs';
 import { globalCommandHandler, globalCommandsIDs } from '../../Inventory/globalCommandHandler';
 import { guilds } from "../../Inventory/guilds";
@@ -51,7 +51,7 @@ const execute = async (interaction: Interaction) => {
 
     else {
         console.log(`unhandled interaction type in ${interaction.channel.id} channel.TYPE = ${interaction.type}`);
-        await bugsChannel.send({
+        await channels.bugsChannel.send({
             embeds: [
                 new MessageEmbed({
                     title: `Untracked Interaction`,

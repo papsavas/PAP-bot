@@ -1,13 +1,10 @@
 import {
-    Client, Constants, TextChannel
+    Client, Constants
 } from 'discord.js';
 import { readdirSync } from 'node:fs';
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import GenericEvent from './Events/GenericEvent';
-
-export let bugsChannel: TextChannel;
-export let logsChannel: TextChannel;
 
 if (process.env.NODE_ENV !== "production") {
     const dotenv = await import("dotenv");
